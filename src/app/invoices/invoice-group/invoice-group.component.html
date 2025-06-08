@@ -1,0 +1,61 @@
+<div class="invoices-group">
+  <div class="invoices-group__header">
+    <h1>Invoices</h1>
+    <p><span class="sm">There are</span> 7 invoices</p>
+  </div>
+
+  <div class="invoices-group__controls">
+    <div class="filter-container">
+      <button class="filter">
+        <p>Filter <span class="ms">by status</span></p>
+        <img src="/assets/icon-arrow-down.svg" alt="" />
+      </button>
+      <div class="filter__dropdown">
+        <ul>
+          <li class="filter__option">
+            <label class="checkbox">
+              <input
+                type="checkbox"
+                (change)="onFilterSelect('draft')"
+                [checked]="selectedFilters.includes('draft')"
+              />
+              <span class="checkbox__checkmark"></span>
+              <span class="checkbox__label">Draft</span>
+            </label>
+          </li>
+          <li class="filter__option">
+            <label class="checkbox">
+              <input
+                type="checkbox"
+                (change)="onFilterSelect('pending')"
+                [checked]="selectedFilters.includes('pending')"
+              />
+              <span class="checkbox__checkmark"></span>
+              <span class="checkbox__label">Pending</span>
+            </label>
+          </li>
+          <li class="filter__option">
+            <label class="checkbox">
+              <input
+                type="checkbox"
+                (change)="onFilterSelect('paid')"
+                [checked]="selectedFilters.includes('paid')"
+              />
+              <span class="checkbox__checkmark"></span>
+              <span class="checkbox__label">Paid</span>
+            </label>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="invoices-group__button">
+      <button class="btn btn--primary" type="button" (click)="onNewInvoice()">
+        <span class="icon icon-plus">
+          <img src="/assets/icon-plus.svg" alt="" />
+        </span>
+        <span class="text">New Invoice</span>
+        <span class="text-sm">New</span>
+      </button>
+    </div>
+  </div>
+</div>

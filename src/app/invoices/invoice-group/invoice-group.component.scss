@@ -1,0 +1,234 @@
+@use '../../../styles.scss' as *;
+
+.invoices-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+
+  .invoices-group__header {
+    h1 {
+      @include text-heading;
+      margin-bottom: 4px;
+
+      @media (min-width: 768px) {
+        @include text-display;
+      }
+    }
+    p {
+      @include text-body-small;
+      color: $secondary-gray;
+      display: flex;
+      gap: 6px;
+
+      @media (min-width: 768px) {
+        @include text-body;
+      }
+
+      span {
+        display: none;
+        @media (min-width: 768px) {
+          display: block;
+        }
+      }
+    }
+  }
+
+  .invoices-group__controls {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+
+    @media (min-width: 768px) {
+      gap: 40px;
+    }
+
+    .filter-container {
+      position: relative;
+    }
+
+    .btn {
+      width: 90px;
+      height: 44px;
+      padding: 6px;
+
+      @media (min-width: 768px) {
+        width: 150px;
+        height: 48px;
+      }
+    }
+
+    .filter {
+      @include text-subheading;
+      display: flex;
+      gap: 12px;
+      background: transparent;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      flex-shrink: 0;
+      cursor: pointer;
+      padding: 0;
+
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      &__dropdown {
+        position: absolute;
+        top: calc(100% + 2px);
+        left: 0;
+        background-color: $bg-card;
+        border-radius: 8px;
+        box-shadow: 0px 10px 20px -6px rgba(72, 84, 159, 0.1);
+        padding: 16px;
+        min-width: 192px;
+        display: none;
+        z-index: 100;
+      }
+
+      &:hover + .filter__dropdown,
+      &__dropdown:hover {
+        display: block;
+      }
+
+      &__option {
+        @include text-body;
+        color: $secondary-black;
+        padding: 8px 0;
+        cursor: pointer;
+        transition: color 0.2s ease;
+
+        &:hover {
+          color: $primary-purple;
+        }
+      }
+    }
+
+    .checkbox {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      cursor: pointer;
+      user-select: none;
+
+      input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+      }
+
+      &__checkmark {
+        position: relative;
+        height: 16px;
+        width: 16px;
+        background-color: $bg-light;
+        border: 1px solid $secondary-blue;
+        border-radius: 2px;
+        transition: all 0.2s ease;
+
+        &:after {
+          content: '';
+          position: absolute;
+          display: none;
+          left: 5px;
+          top: 2px;
+          width: 4px;
+          height: 8px;
+          border: solid $primary-purple;
+          border-width: 0 2px 2px 0;
+          transform: rotate(45deg);
+        }
+      }
+
+      input:checked ~ &__checkmark {
+        background-color: $primary-purple;
+        border-color: $primary-purple;
+
+        &:after {
+          display: block;
+          border-color: white;
+        }
+      }
+
+      &__label {
+        @include text-body;
+        color: $secondary-black;
+      }
+
+      &:hover {
+        .checkbox__checkmark {
+          border-color: $primary-purple;
+        }
+        .checkbox__label {
+          color: $primary-purple;
+        }
+      }
+    }
+
+    .ms {
+      display: none !important;
+
+      @media (min-width: 768px) {
+        display: inline !important;
+      }
+    }
+
+    .invoices-group__button {
+      .btn {
+        width: 90px;
+        height: 44px;
+        padding: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        white-space: nowrap;
+
+        @media (min-width: 768px) {
+          justify-content: space-evenly;
+          width: 150px;
+          height: 48px;
+        }
+      }
+
+      .text {
+        display: none;
+
+        @media (min-width: 768px) {
+          display: inline;
+        }
+      }
+
+      .text-sm {
+        display: inline;
+
+        @media (min-width: 768px) {
+          display: none;
+        }
+      }
+
+      .icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        background: $bg-light;
+        border-radius: 50%;
+        flex-shrink: 0;
+        color: $primary-purple;
+        font-weight: 800;
+
+        svg {
+          width: 16px;
+          height: 16px;
+        }
+      }
+    }
+  }
+}

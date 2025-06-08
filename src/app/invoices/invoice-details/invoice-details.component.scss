@@ -1,0 +1,320 @@
+@use '../../styles.scss' as *;
+
+// Common styles for main containers
+.invoice-actions,
+.invoice-content {
+  border-radius: 8px;
+  box-shadow: 0px 10px 10px -10px rgba(72, 84, 159, 0.10004);
+  background-color: $bg-card;
+  padding: 24px;
+  margin: 0 24px;
+}
+
+// Invoice details container
+.invoice-details-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .invoice-details-nav {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    width: fit-content;
+    padding: 32px 24px;
+    @include text-subheading;
+
+    .back-arrow {
+      flex-shrink: 0;
+      object-fit: contain;
+    }
+  }
+}
+
+// Invoice actions section
+.invoice-actions {
+  display: flex;
+  justify-content: space-between;
+
+  .action-buttons {
+    display: none;
+
+    @media (min-width: 768px) {
+      display: flex;
+      gap: 16px;
+    }
+  }
+
+  .status-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 8px;
+
+    @media (min-width: 768px) {
+      width: auto;
+      gap: 16px;
+    }
+
+    .status-label {
+      @include text-body-small;
+      color: $secondary-blue-dark;
+    }
+
+    .status-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      height: 40px;
+      width: 104px;
+      border-radius: 6px;
+
+      .status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+      }
+
+      p {
+        @include text-subheading-small;
+        font-weight: $font-weight-bold;
+        text-align: center;
+      }
+
+      &.status-paid {
+        background: rgba(51, 214, 160, 0.157);
+        .status-text {
+          color: #33d69f;
+        }
+        .status-dot {
+          background-color: #33d69f;
+        }
+      }
+
+      &.status-pending {
+        background: rgba(255, 143, 0, 0.157);
+        .status-text {
+          color: #ff8f00;
+        }
+        .status-dot {
+          background-color: #ff8f00;
+        }
+      }
+    }
+  }
+}
+
+// Invoice content section
+.invoice-content {
+  margin-top: 16px;
+
+  .invoice-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 30px;
+    justify-content: space-between;
+    margin-bottom: 24px;
+
+    @media (min-width: 768px) {
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .invoice-id__container {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+
+      .invoice-title {
+        @include text-subheading-small;
+        color: $secondary-black;
+        margin-bottom: 4px;
+
+        span {
+          color: $secondary-blue-dark;
+        }
+      }
+    }
+  }
+
+  // Common text styles
+  .invoice-desc,
+  .invoice-client,
+  .invoice-info__label {
+    @include text-body-small;
+    color: $secondary-blue-dark;
+    margin-bottom: 12px;
+  }
+
+  .invoice-info__value {
+    @include text-subheading;
+    color: $secondary-black;
+  }
+
+  // Invoice information grid
+  .invoice-info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+    margin-bottom: 40px;
+
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .invoice-info__date {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+  }
+
+  // Invoice summary section
+  .invoice-summary {
+    margin: 24px 0;
+    border-radius: 8px;
+    background-color: $bg-light;
+
+    .invoice-summary__item,
+    .invoice-summary__grand {
+      @include text-subheading-small;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px;
+    }
+
+    .invoice-summary__item {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 24px;
+
+      .invoice-summary__title-container {
+        display: none;
+        width: 100%;
+        justify-content: space-between;
+        gap: 16px;
+
+        .invoice-summary__title {
+          @include text-body;
+          color: $secondary-blue-dark;
+        }
+
+        > * {
+          flex: 1;
+        }
+
+        @media (min-width: 768px) {
+          display: flex;
+        }
+      }
+
+      .invoice-summary__item-details {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        width: 100%;
+
+        > * {
+          flex: 1;
+        }
+
+        .invoice-summary__item-detail,
+        .invoice-summary__item-quantity,
+        .invoice-summary__item-price,
+        .invoice-summary__item-total {
+          @include text-subheading-small;
+          color: $secondary-black;
+        }
+
+        .invoice-summary__item-detail {
+          h4 {
+            margin-bottom: 8px;
+          }
+
+          p {
+            @include text-body-small;
+            color: $secondary-blue-dark;
+
+            @media(min-width: 768px) {
+              display: none;
+            }
+          }
+        }
+
+        .invoice-summary__item-quantity,
+        .invoice-summary__item-price {
+          color: $secondary-blue-dark;
+          display: none;
+
+          @media (min-width: 768px) {
+            display: block;
+          }
+        }
+      }
+    }
+
+    .invoice-summary__grand {
+      background-color: $dark-bg-medium;
+      color: #fff;
+      border-radius: 0 0 8px 8px;
+
+      h6 {
+        font-size: 11px;
+        font-weight: 200;
+      }
+
+      p {
+        @include text-subheading;
+      }
+    }
+  }
+}
+
+// Button styles
+.btn {
+  &--secondary-alt {
+    width: 73px;
+    height: 48px;
+    background-color: #e8eaf55e;
+    color: $secondary-blue-dark;
+
+    &:hover {
+      background-color: #dfe3fa;
+      color: $secondary-blue-dark;
+    }
+  }
+
+  &-alt {
+    width: 89px;
+    height: 48px;
+  }
+
+  &-mark {
+    width: 131px;
+    height: 48px;
+  }
+}
+
+// Mobile action buttons
+.action-buttons-mobile {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 24px;
+  background-color: $bg-card;
+  box-shadow: 0px -10px 10px -10px rgba(72, 84, 159, 0.10004);
+
+  @media (min-width: 768px) {
+    display: none;
+  }
+}

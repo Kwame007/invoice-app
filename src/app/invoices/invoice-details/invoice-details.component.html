@@ -1,0 +1,132 @@
+<div class="invoice-details-container">
+  <nav class="invoice-details-nav">
+    <img src="/assets/icon-arrow-left.svg" alt="Back arrow" class="back-arrow" />
+    <a [routerLink]="['/']" class="back-link">Go back</a>
+  </nav>
+
+  @if (isLoading()) {
+    <div class="loading">Loading invoice details...</div>
+  } @else if (error()) {
+    <div class="error">{{ error() }}</div>
+  } @else if (invoiceDetails) {
+    <aside class="invoice-actions">
+      <div class="status-container">
+        <p class="status-label">Status</p>
+        <div class="status-badge" [ngClass]="'status-' + invoiceDetails.status">
+          <div class="status-dot"></div>
+          <p class="status-text">{{ invoiceDetails.status | titlecase }}</p>
+        </div>
+      </div>
+      <div class="action-buttons">
+        <button class="btn btn--secondary-alt">Edit</button>
+        <button class="btn btn--danger btn-alt" (click)="onDelete()" [disabled]="isDeleting()">
+          @if (isDeleting()) {
+            Deleting...
+          } @else {
+            Delete
+          }
+        </button>
+        <button class="btn btn--primary btn-mark">Mark as Paid</button>
+      </div>
+    </aside>
+
+    <!-- Invoice details content will go here -->
+    <div class="invoice-content">
+      <div class="invoice-header">
+        <div class="invoice-id__container">
+          <h2 class="invoice-title"><span>#</span>{{ invoiceDetails.id }}</h2>
+          <p class="invoice-desc">{{ invoiceDetails.description }}</p>
+        </div>
+        <div class="invoice-client">
+          <p class="invoice-client__street">{{ invoiceDetails.senderAddress.street }}</p>
+          <p class="invoice-client__city">{{ invoiceDetails.senderAddress.city }}</p>
+          <p class="invoice-client__post">{{ invoiceDetails.senderAddress.postCode }}</p>
+          <p class="invoice-client__country">{{ invoiceDetails.senderAddress.country }}</p>
+        </div>
+      </div>
+      <div class="invoice-info">
+        <div class="invoice-info__date">
+          <div>
+            <p class="invoice-info__label">Invoice Date</p>
+            <p class="invoice-info__value">{{ invoiceDetails.createdAt | date: 'longDate' }}</p>
+          </div>
+          <div>
+            <p class="invoice-info__label">Payment Due</p>
+            <p class="invoice-info__value">{{ invoiceDetails.paymentDue | date: 'longDate' }}</p>
+          </div>
+        </div>
+        <div class="invoice-info__bill">
+          <p class="invoice-info__label">Bill To</p>
+          <p class="invoice-info__value invoice-info__label">{{ invoiceDetails.clientName }}</p>
+          <p class="invoice-info__address invoice-info__label">
+            {{ invoiceDetails.clientAddress.street }}
+          </p>
+          <p class="invoice-info__city invoice-info__label">
+            {{ invoiceDetails.clientAddress.city }}
+          </p>
+          <p class="invoice-info__post invoice-info__label">
+            {{ invoiceDetails.clientAddress.postCode }}
+          </p>
+          <p class="invoice-info__country invoice-info__label">
+            {{ invoiceDetails.clientAddress.country }}
+          </p>
+        </div>
+        <div class="invoice-info__email">
+          <p class="invoice-info__label">Sent to</p>
+          <p class="invoice-info__value">{{ invoiceDetails.clientEmail }}</p>
+        </div>
+      </div>
+      <div class="invoice-summary">
+        <div class="invoice-summary__item">
+          <div class="invoice-summary__title-container">
+            <p class="invoice-summary__title">Item List</p>
+            <p class="invoice-summary__title">QTY.</p>
+            <p class="invoice-summary__title">Price</p>
+            <p class="invoice-summary__title">Total</p>
+          </div>
+          @for (item of invoiceDetails.items; track item) {
+            <div class="invoice-summary__item-details">
+              <div class="invoice-summary__item-detail">
+                <h4>{{ item.name }}</h4>
+                <p class="alt">£ {{ item.price | number: '1.2-2' }}</p>
+              </div>
+              <div class="invoice-summary__item-quantity">
+                <p>{{ item.quantity }}</p>
+              </div>
+              <div class="invoice-summary__item-price">
+                <p>£ {{ item.price | number: '1.2-2' }}</p>
+              </div>
+              <div class="invoice-summary__item-total">
+                <p>£ {{ item.total | number: '1.2-2' }}</p>
+              </div>
+            </div>
+          }
+        </div>
+        <div class="invoice-summary__grand">
+          <h6>Grand Total</h6>
+          <p>£ {{ invoiceDetails.total | number: '1.2-2' }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="action-buttons-mobile">
+      <button class="btn btn--secondary-alt">Edit</button>
+      <button class="btn btn--danger btn-alt" (click)="onDelete()" [disabled]="isDeleting()">
+        @if (isDeleting()) {
+          Deleting...
+        } @else {
+          Delete
+        }
+      </button>
+      <button class="btn btn--primary btn-mark">Mark as Paid</button>
+    </div>
+  }
+</div>
+
+@if (showDeleteModal()) {
+  <app-confirmation-modal
+    [id]="invoiceId()"
+    (confirm)="onDeleteConfirm()"
+    (cancel)="onDeleteCancel()"
+  />
+}

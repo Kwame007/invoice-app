@@ -1,0 +1,12 @@
+<div class="container">
+  <app-invoice-group (filterChange)="onFilterChange($event)" />
+  <div class="invoice-cards">
+    @if (filteredInvoices.length > 0) {
+      @for (invoice of filteredInvoices; track invoice.id) {
+        <app-invoice-card [invoice]="invoice" />
+      }
+    } @else {
+      <app-invoice-empty />
+    }
+  </div>
+</div>

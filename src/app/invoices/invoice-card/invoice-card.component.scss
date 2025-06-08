@@ -1,0 +1,199 @@
+@use '../../../styles.scss' as *;
+
+.invoice-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 24px;
+  background-color: $bg-card;
+  border-radius: 8px;
+  padding: 24px;
+  color: $secondary-blue-dark;
+  box-shadow: 0px 10px 20px -6px rgba(72, 84, 159, 0.1);
+  border: 1px solid transparent;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    border-color: $primary-purple;
+  }
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+
+    @media (min-width: 768px) {
+      display: flex;
+      gap: 27px;
+      margin: 0;
+    }
+
+    &__title {
+      @include text-heading;
+      color: $secondary-blue;
+    }
+
+    &__status {
+      font-size: $font-size-sm;
+      font-weight: $font-weight-medium;
+      color: $secondary-gray;
+      text-transform: uppercase;
+    }
+  }
+
+  &__details {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    @media (min-width: 768px) {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      gap: 40px;
+    }
+  }
+
+  &__id {
+    @include text-subheading-small;
+    color: $secondary-black;
+    font-weight: $font-weight-bold;
+
+    .hash {
+      color: $secondary-blue-dark;
+    }
+  }
+
+  &__name {
+    @include text-body;
+    color: $secondary-blue-medium;
+
+    @media (min-width: 768px) {
+      display: none;
+    }
+  }
+
+  &__icon {
+    display: none;
+
+    @media (min-width: 768px) {
+      display: block;
+    }
+  }
+
+  &__info {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+
+    @media (min-width: 768px) {
+      flex-direction: row;
+      align-items: center;
+      gap: 46px;
+    }
+  }
+
+  &__date {
+    @include text-body;
+    color: $secondary-blue-dark;
+
+    span {
+      color: $secondary-blue-medium;
+    }
+
+    @media (min-width: 768px) {
+      display: none;
+    }
+  }
+
+  &__amount {
+    @include text-subheading;
+    color: $secondary-black;
+  }
+
+  &__status-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 40px;
+    width: 104px;
+    border-radius: 6px;
+
+    .invoice-card__status {
+      @include text-subheading-small;
+      font-weight: $font-weight-bold;
+      text-align: center;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin: auto 0;
+    }
+
+    &.status-paid {
+      background: rgba(51, 214, 160, 0.157);
+      .invoice-card__status {
+        color: #33d69f;
+      }
+      .dot {
+        background-color: #33d69f;
+      }
+    }
+
+    &.status-pending {
+      background: rgba(255, 143, 0, 0.157);
+      .invoice-card__status {
+        color: #ff8f00;
+      }
+      .dot {
+        background-color: #ff8f00;
+      }
+    }
+
+    &.status-draft {
+      background: rgba(223, 227, 250, 0.157);
+      .invoice-card__status {
+        color: #373b53;
+      }
+      .dot {
+        background-color: #373b53;
+      }
+    }
+  }
+}
+
+.date-variant {
+  @include text-body;
+  color: $secondary-blue-dark;
+  display: none;
+
+  span {
+    color: $secondary-blue-medium;
+  }
+
+  @media (min-width: 768px) {
+    display: block;
+  }
+}
+
+.name-variant {
+  @include text-body;
+  color: $secondary-blue-medium;
+  display: none;
+
+  @media (min-width: 768px) {
+    display: block;
+  }
+}
