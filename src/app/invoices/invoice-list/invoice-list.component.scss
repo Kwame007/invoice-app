@@ -1,0 +1,20 @@
+.container {
+  padding: 32px 24px;
+  max-width: 730px;
+  margin: 0 auto;
+
+  // tablets
+  @media (min-width: 768px) {
+    padding: 56px 20px;
+  }
+
+  // desktops
+  @media (min-width: 1024px) {
+    padding: 64px 0;
+  }
+}
+.invoice-cards{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

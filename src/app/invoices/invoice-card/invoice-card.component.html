@@ -1,0 +1,22 @@
+<button (click)="navigateToInvoice(invoice.id)" class="invoice-card">
+  <div class="invoice-card__header">
+    <p class="invoice-card__id"><span class="hash">#</span>{{ invoice.id }}</p>
+    <p class="invoice-card__name">{{ invoice.clientName }}</p>
+    <p class="date-variant"><span>Due</span> {{ invoice.paymentDue | date: 'dd MMM yyyy' }}</p>
+  </div>
+
+  <div class="invoice-card__details">
+    <div class="invoice-card__info">
+      <p class="invoice-card__date">
+        <span>Due</span> {{ invoice.paymentDue | date: 'dd MMM yyyy' }}
+      </p>
+      <p class="name-variant">{{ invoice.clientName }}</p>
+      <p class="invoice-card__amount">£{{ invoice.total | number: '1.2-2' }}</p>
+    </div>
+    <div class="invoice-card__status-container" [ngClass]="'status-' + invoice.status">
+      <div class="dot"></div>
+      <p class="invoice-card__status">{{ invoice.status | titlecase }}</p>
+    </div>
+    <img src="assets/icon-arrow-right.svg" alt="arrow right" class="invoice-card__icon" />
+  </div>
+</button>
