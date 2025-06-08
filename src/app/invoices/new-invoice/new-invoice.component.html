@@ -1,0 +1,222 @@
+<div class="invoice">
+  <app-header-nav class="invoice__header" />
+  <app-side-bar class="invoice__sidebar" />
+  <section class="invoice__content">
+    <nav class="invoice__nav">
+      <img src="/assets/icon-arrow-left.svg" alt="Back arrow" class="invoice__nav-icon" />
+      <a [routerLink]="['/']" class="invoice__nav-link">Go back</a>
+    </nav>
+    <h1 class="invoice__title">New Invoice</h1>
+    <form [formGroup]="invoiceForm" (ngSubmit)="onSubmit()" class="invoice__form">
+      <section class="invoice__section">
+        <div class="invoice__section-title">Bill From</div>
+        <div formGroupName="senderAddress" class="invoice__address">
+          <div class="invoice__field">
+            <label for="senderStreet" class="invoice__label">Street Address</label>
+            <input id="senderStreet" type="text" formControlName="street" class="invoice__input" />
+          </div>
+          <div class="invoice__row">
+            <div class="invoice__field">
+              <label for="senderCity" class="invoice__label">City</label>
+              <input id="senderCity" type="text" formControlName="city" class="invoice__input" />
+            </div>
+            <div class="invoice__field">
+              <label for="senderPostCode" class="invoice__label">Post Code</label>
+              <input
+                id="senderPostCode"
+                type="text"
+                formControlName="postCode"
+                class="invoice__input"
+              />
+            </div>
+            <div class="invoice__field">
+              <label for="senderCountry" class="invoice__label">Country</label>
+              <input
+                id="senderCountry"
+                type="text"
+                formControlName="country"
+                class="invoice__input"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="invoice__section">
+        <div class="invoice__section-title">Bill To</div>
+        <div class="invoice__field">
+          <label for="clientName" class="invoice__label">Client's Name</label>
+          <input id="clientName" type="text" formControlName="clientName" class="invoice__input" />
+        </div>
+        <div class="invoice__field">
+          <label for="clientEmail" class="invoice__label">Client's Email</label>
+          <input
+            id="clientEmail"
+            type="email"
+            formControlName="clientEmail"
+            class="invoice__input"
+          />
+        </div>
+        <div formGroupName="clientAddress" class="invoice__address">
+          <div class="invoice__field">
+            <label for="clientStreet" class="invoice__label">Street Address</label>
+            <input id="clientStreet" type="text" formControlName="street" class="invoice__input" />
+          </div>
+          <div class="invoice__row">
+            <div class="invoice__field">
+              <label for="clientCity" class="invoice__label">City</label>
+              <input id="clientCity" type="text" formControlName="city" class="invoice__input" />
+            </div>
+            <div class="invoice__field">
+              <label for="clientPostCode" class="invoice__label">Post Code</label>
+              <input
+                id="clientPostCode"
+                type="text"
+                formControlName="postCode"
+                class="invoice__input"
+              />
+            </div>
+            <div class="invoice__field">
+              <label for="clientCountry" class="invoice__label">Country</label>
+              <input
+                id="clientCountry"
+                type="text"
+                formControlName="country"
+                class="invoice__input"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="invoice__subsection">
+          <div class="invoice__rows">
+            <div class="invoice__field">
+              <label for="createdAt" class="invoice__label">Invoice Date</label>
+              <input
+                id="createdAt"
+                type="date"
+                formControlName="createdAt"
+                (change)="onDateOrTermsChange()"
+                class="invoice__input"
+              />
+            </div>
+            <div class="invoice__field">
+              <label for="paymentTerms" class="invoice__label">Payment Terms</label>
+              <select
+                id="paymentTerms"
+                formControlName="paymentTerms"
+                (change)="onDateOrTermsChange()"
+                class="invoice__select"
+              >
+                <option value="1">Net 1 Day</option>
+                <option value="7">Net 7 Days</option>
+                <option value="14">Net 14 Days</option>
+                <option value="30">Net 30 Days</option>
+              </select>
+            </div>
+          </div>
+          <div class="invoice__field">
+            <label for="description" class="invoice__label">Project Description</label>
+            <input
+              id="description"
+              type="text"
+              formControlName="description"
+              class="invoice__input"
+            />
+          </div>
+        </div>
+      </section>
+
+      <section class="invoice__section invoice__section--items">
+        <div class="invoice__section-title">Item List</div>
+        <div formArrayName="items" class="invoice__items">
+          <div
+            *ngFor="let item of items.controls; let i = index"
+            [formGroupName]="i"
+            class="invoice__item"
+          >
+            <div class="invoice__field">
+              <!-- <h3 class="invoice__items-title">Item Name</h3> -->
+              <label class="invoice__label">Item Name</label>
+              <input
+                type="text"
+                formControlName="name"
+                placeholder="Item Name"
+                class="invoice__input"
+              />
+            </div>
+            <div>
+              <div class="invoice__field">
+                <label class="invoice__label">Qty.</label>
+                <input
+                  type="number"
+                  formControlName="quantity"
+                  (change)="onQuantityChange(item)"
+                  placeholder="Qty"
+                  class="invoice__input"
+                />
+              </div>
+              <div class="invoice__field">
+                <label class="invoice__label">Price</label>
+                <input
+                  type="number"
+                  formControlName="price"
+                  (change)="onPriceChange(item)"
+                  placeholder="Price"
+                  class="invoice__input"
+                />
+              </div>
+              <div class="invoice__field">
+                <label class="invoice__label">Total</label>
+                <input
+                  type="number"
+                  formControlName="total"
+                  readonly
+                  placeholder="Total"
+                  class="invoice__input"
+                />
+              </div>
+              <button type="button" class="invoice__remove-btn" (click)="removeItem(i)">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-trash-icon lucide-trash"
+                >
+                  <path d="M3 6h18" />
+                  <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                  <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="invoice__add-btn" (click)="addItem()">+ Add New Item</button>
+      </section>
+
+      <section class="invoice__actions">
+        <button type="button" (click)="closeForm()" class="invoice__btn invoice__btn--discard">
+          Discard
+        </button>
+        <div class="invoice__btn-group">
+          <button type="button" class="invoice__btn invoice__btn--draft" (click)="saveAsDraft()">
+            Save as Draft
+          </button>
+          <button
+            type="submit"
+            class="invoice__btn invoice__btn--submit"
+            [disabled]="!invoiceForm.valid"
+          >
+            Save & Send
+          </button>
+        </div>
+      </section>
+    </form>
+  </section>
+</div>
