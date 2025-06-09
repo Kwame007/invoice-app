@@ -29,7 +29,7 @@
         <button 
           class="btn btn--primary btn-mark" 
           (click)="markAsPaid()" 
-          [disabled]="isMarkingAsPaid() || invoiceDetails?.status === 'paid'"
+          [disabled]="isMarkingAsPaid() || invoiceDetails.status === 'paid'"
         >
           @if (isMarkingAsPaid()) {
             Marking as Paid...
@@ -121,17 +121,11 @@
 
     <div class="action-buttons-mobile">
       <button class="btn btn--secondary-alt">Edit</button>
-      <button class="btn btn--danger btn-alt" (click)="onDelete()" [disabled]="isDeleting()">
-        @if (isDeleting()) {
-          Deleting...
-        } @else {
-          Delete
-        }
-      </button>
+     <button class="btn btn--primary" (click)="markAsPaid()" [disabled]="isMarkingAsPaid() || invoiceDetails.status === 'paid'" > <span *ngIf="!isMarkingAsPaid()">Mark as Paid</span> <span *ngIf="isMarkingAsPaid()">Marking as Paid...</span> </button>
       <button 
         class="btn btn--primary btn-mark" 
         (click)="markAsPaid()" 
-        [disabled]="isMarkingAsPaid() || invoiceDetails?.status === 'paid'"
+        [disabled]="isMarkingAsPaid() || invoiceDetails.status === 'paid'"
       >
         @if (isMarkingAsPaid()) {
           Marking as Paid...

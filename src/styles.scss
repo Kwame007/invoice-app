@@ -1,6 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import url('https://fonts.googleapis.com/css2?family=Spartan:wght@500;700&display=swap');
+@font-face {
+  font-family: 'Spartan';
+  src: url('/assets/fonts/Spartan-Medium.woff2') format('woff2'),
+       url('/assets/fonts/Spartan-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Spartan';
+  src: url('/assets/fonts/Spartan-Bold.woff2') format('woff2'),
+       url('/assets/fonts/Spartan-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
 
 $primary-purple: #7c5dfa;
 $primary-purple-light: #9277ff;
