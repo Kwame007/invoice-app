@@ -5,8 +5,6 @@ import { InvoiceService } from '../../invoice/invoice-service.service';
 import { Invoice } from '../../app.module';
 import { ConfirmationModalComponent } from "../../shared/confirmation-modal/confirmation-modal.component";
 
-
-
 @Component({
   selector: 'app-invoice-details',
   standalone: true,
@@ -23,6 +21,7 @@ export class InvoiceDetailsComponent {
   invoiceDetails: Invoice | null = null;
   isLoading = signal<boolean>(true);
   isDeleting = signal<boolean>(false);
+  isMarkingAsPaid = signal<boolean>(false);
   error = signal<string | null>(null);
   showDeleteModal = signal<boolean>(false);
   private isDestroyed = signal<boolean>(false);
@@ -62,10 +61,10 @@ export class InvoiceDetailsComponent {
     const invoice = this.invoiceService.getInvoices(this.invoiceId());
     if (invoice) {
       this.invoiceDetails = invoice;
-      console.log('Invoice details loaded:', this.invoiceDetails);
+    
     } else {
       this.error.set(`Invoice with ID ${this.invoiceId()} not found`);
-      console.error('Invoice not found:', this.invoiceId());
+  
     }
     this.isLoading.set(false);
   }
@@ -97,5 +96,31 @@ export class InvoiceDetailsComponent {
 
   onDeleteCancel(): void {
     this.showDeleteModal.set(false);
+  }
+
+  markAsPaid(): void {
+    if (!this.invoiceDetails) {
+      this.error.set('Cannot mark as paid: Invoice not found');
+      return;
+    }
+
+    if (this.invoiceDetails.status === 'paid') {
+      this.error.set('Invoice is already marked as paid');
+      return;
+    }
+
+    this.isMarkingAsPaid.set(true);
+    this.error.set(null);
+
+    try {
+      const updatedInvoice = { ...this.invoiceDetails, status: 'paid' as const };
+      this.invoiceService.updateInvoice(updatedInvoice);
+      this.invoiceDetails = updatedInvoice;
+      this.isMarkingAsPaid.set(false);
+    } catch (err) {
+      console.error('Error marking invoice as paid:', err);
+      this.error.set('Failed to mark invoice as paid. Please try again.');
+      this.isMarkingAsPaid.set(false);
+    }
   }
 }

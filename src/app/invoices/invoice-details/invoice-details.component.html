@@ -26,7 +26,17 @@
             Delete
           }
         </button>
-        <button class="btn btn--primary btn-mark">Mark as Paid</button>
+        <button 
+          class="btn btn--primary btn-mark" 
+          (click)="markAsPaid()" 
+          [disabled]="isMarkingAsPaid() || invoiceDetails?.status === 'paid'"
+        >
+          @if (isMarkingAsPaid()) {
+            Marking as Paid...
+          } @else {
+            Mark as Paid
+          }
+        </button>
       </div>
     </aside>
 
@@ -118,7 +128,17 @@
           Delete
         }
       </button>
-      <button class="btn btn--primary btn-mark">Mark as Paid</button>
+      <button 
+        class="btn btn--primary btn-mark" 
+        (click)="markAsPaid()" 
+        [disabled]="isMarkingAsPaid() || invoiceDetails?.status === 'paid'"
+      >
+        @if (isMarkingAsPaid()) {
+          Marking as Paid...
+        } @else {
+          Mark as Paid
+        }
+      </button>
     </div>
   }
 </div>
