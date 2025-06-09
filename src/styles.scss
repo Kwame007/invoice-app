@@ -2,20 +2,16 @@
 
 @font-face {
   font-family: 'Spartan';
-  src: url('/assets/fonts/Spartan-Medium.woff2') format('woff2'),
-       url('/assets/fonts/Spartan-Medium.woff') format('woff');
+  src: url('./assets/spartan/Spartan-Medium.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
-  font-display: swap;
 }
 
 @font-face {
   font-family: 'Spartan';
-  src: url('/assets/fonts/Spartan-Bold.woff2') format('woff2'),
-       url('/assets/fonts/Spartan-Bold.woff') format('woff');
+  src: url('./assets/spartan/Spartan-Bold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
-  font-display: swap;
 }
 
 $primary-purple: #7c5dfa;
