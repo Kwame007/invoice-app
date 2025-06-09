@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Invoice } from '../../app.module';
 
+
 @Component({
   selector: 'app-invoice-group',
   imports: [],
@@ -9,7 +10,9 @@ import { Invoice } from '../../app.module';
   styleUrl: './invoice-group.component.scss'
 })
 export class InvoiceGroupComponent {
+
   @Input() invoices: Invoice[] = [];
+
 
   @Output() filterChange = new EventEmitter<string[]>();
   selectedFilters: string[] = [];

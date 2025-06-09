@@ -14,6 +14,7 @@ import { InvoiceEmptyComponent } from "../invoice-empty/invoice-empty.component"
 })
 export class InvoiceListComponent implements OnInit {
   invoices: Invoice[] = [];
+
   filteredInvoices: Invoice[] = [];
 
   constructor(
