@@ -13,7 +13,7 @@ import { InvoiceEmptyComponent } from "../invoice-empty/invoice-empty.component"
   styleUrl: './invoice-list.component.scss'
 })
 export class InvoiceListComponent implements OnInit {
-invoices: Invoice[] = [];
+  invoices: Invoice[] = [];
   filteredInvoices: Invoice[] = [];
 
   constructor(

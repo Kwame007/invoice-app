@@ -1,5 +1,5 @@
 <div class="container">
-  <app-invoice-group (filterChange)="onFilterChange($event)" />
+  <app-invoice-group (filterChange)="onFilterChange($event)" [invoices]="invoices" />
   <div class="invoice-cards">
     @if (filteredInvoices.length > 0) {
       @for (invoice of filteredInvoices; track invoice.id) {
