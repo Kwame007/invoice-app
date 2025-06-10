@@ -26,7 +26,6 @@ export class InvoiceListComponent implements OnInit {
     this.invoiceService.invoices$.subscribe(invoices => {
       this.invoices = invoices;
       this.filteredInvoices = invoices;
-      console.log('Invoices loaded:', this.invoices);
     });
   }
 
