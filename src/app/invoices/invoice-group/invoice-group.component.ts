@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Invoice } from '../../app.module';
-
+import { ClickOutsideDirective } from '../../shared/directives/click-outside.directive';
 
 @Component({
   selector: 'app-invoice-group',
-  imports: [],
+  imports: [ClickOutsideDirective],
   templateUrl: './invoice-group.component.html',
   styleUrl: './invoice-group.component.scss'
 })
@@ -16,6 +16,7 @@ export class InvoiceGroupComponent {
 
   @Output() filterChange = new EventEmitter<string[]>();
   selectedFilters: string[] = [];
+  isDropdownOpen = false;
 
   constructor(private router: Router) {}
 
@@ -32,6 +33,16 @@ export class InvoiceGroupComponent {
       this.selectedFilters.splice(index, 1);
     }
     this.filterChange.emit(this.selectedFilters);
+  }
+
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
+  onOutsideClick() {
+    if (this.isDropdownOpen) {
+      this.isDropdownOpen = false;
+    }
   }
 
 }

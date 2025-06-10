@@ -5,12 +5,16 @@
   </div>
 
   <div class="invoices-group__controls">
-    <div class="filter-container">
-      <button class="filter">
+    <div class="filter-container" clickOutside (clickOutside)="onOutsideClick()">
+      <button class="filter" (click)="toggleDropdown()">
         <p>Filter <span class="ms">by status</span></p>
-        <img src="/assets/icon-arrow-down.svg" alt="" />
+        <img 
+          src="/assets/icon-arrow-down.svg" 
+          alt="" 
+          [class.rotate]="isDropdownOpen"
+        />
       </button>
-      <div class="filter__dropdown">
+      <div class="filter__dropdown" [class.show]="isDropdownOpen">
         <ul>
           <li class="filter__option">
             <label class="checkbox">
@@ -19,8 +23,7 @@
                 (change)="onFilterSelect('draft')"
                 [checked]="selectedFilters.includes('draft')"
               />
-              <span class="checkbox__checkmark"></span>
-              <span class="checkbox__label">Draft</span>
+              <span>Draft</span>
             </label>
           </li>
           <li class="filter__option">
@@ -30,8 +33,7 @@
                 (change)="onFilterSelect('pending')"
                 [checked]="selectedFilters.includes('pending')"
               />
-              <span class="checkbox__checkmark"></span>
-              <span class="checkbox__label">Pending</span>
+              <span>Pending</span>
             </label>
           </li>
           <li class="filter__option">
@@ -41,8 +43,7 @@
                 (change)="onFilterSelect('paid')"
                 [checked]="selectedFilters.includes('paid')"
               />
-              <span class="checkbox__checkmark"></span>
-              <span class="checkbox__label">Paid</span>
+              <span>Paid</span>
             </label>
           </li>
         </ul>
