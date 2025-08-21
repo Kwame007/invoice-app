@@ -1,8 +1,9 @@
-name: Deploy Angular to S3 + CloudFront
+name: Deploy Angular App to S3
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main   # Change if your branch is different
 
 jobs:
   deploy:
@@ -10,12 +11,12 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '18'
 
       - name: Install dependencies
         run: npm install
@@ -23,22 +24,14 @@ jobs:
       - name: Build Angular app
         run: npm run build --prod
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
+      - name: Deploy to S3
+        uses: jakejarvis/s3-sync-action@v0.5.1
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
+          args: --delete
+        env:
+          AWS_S3_BUCKET: invoice007   # your bucket name
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: us-east-1                # your region
+          SOURCE_DIR: dist/invoice-app/browser
 
-      - name: Upload to S3
-        uses: aws-actions/s3-sync@v2
-        with:
-          source-dir: dist/invoice-app/browser
-          bucket: invoiceappbucket007
-          delete: true
-
-      - name: Invalidate CloudFront cache
-        uses: aws-actions/aws-cloudfront-invalidate@v1
-        with:
-          distribution-id: E3SHHRLORFB3EN
-          paths: "/*"
